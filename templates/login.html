@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Aether | Login{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+    <div class="auth-card reveal">
+        <p class="section-kicker">Welcome Back</p>
+        <h1>Log in to Aether</h1>
+        <p class="auth-subtext">Return to your curated cinematic universe.</p>
+
+        <form method="POST" class="auth-form">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" name="email" placeholder="name@example.com" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" name="password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary full-btn">Sign In</button>
+        </form>
+
+        <p class="auth-switch">
+            Don’t have an account? 
+            <a href="{{ url_for('register') }}">Create one</a>
+        </p>
+    </div>
+</section>
+{% endblock %}

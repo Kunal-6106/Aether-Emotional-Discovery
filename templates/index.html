@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}Aether | Premium Streaming Discovery{% endblock %}
+
+{% block content %}
+<section class="landing-hero reveal">
+    <p class="section-kicker">Premium Discovery</p>
+    <h1>Step into your premium cinema universe.</h1>
+    <p>
+        Track what you watch, rate what you actually feel, and discover titles that perfectly match your cinematic taste profile.
+    </p>
+
+    <div class="hero-actions">
+        <a href="{{ url_for('login') }}" class="btn btn-primary">Sign In</a>
+        <a href="{{ url_for('register') }}" class="btn btn-secondary">Create Account</a>
+    </div>
+</section>
+
+<script>
+// Reveal animation on scroll
+document.querySelectorAll('.reveal').forEach(element => {
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    observer.observe(element);
+});
+</script>
+{% endblock %}

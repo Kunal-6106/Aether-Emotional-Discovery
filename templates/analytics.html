@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="mb-5">
+    <span class="hero-badge">Taste Intelligence</span>
+    <h1 class="display-hero">Your cinematic behavior, visualized.</h1>
+    <p class="section-subtitle">A premium overview of how you consume stories.</p>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card h-100">
+            <p class="text-luxury-muted mb-2">Titles Watched</p>
+            <div class="stat-number">{{ total_watched }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card h-100">
+            <p class="text-luxury-muted mb-2">Emotional Ratings</p>
+            <div class="stat-number">{{ total_ratings }}</div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card h-100">
+            <p class="text-luxury-muted mb-2">Favorite Genre</p>
+            <div class="stat-number" style="font-size: 1.8rem;">
+                {{ favorite_genre.genre if favorite_genre else '—' }}
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6 col-lg-3">
+        <div class="stat-card h-100">
+            <p class="text-luxury-muted mb-2">Favorite Platform</p>
+            <div class="stat-number" style="font-size: 1.8rem;">
+                {{ favorite_platform.platform if favorite_platform else '—' }}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card p-4">
+    <h3 class="mb-4">Emotional Taste Profile</h3>
+
+    {% if emotional_profile %}
+    <div class="profile-grid">
+        {% for mood in emotional_profile %}
+        <div class="profile-card">
+            <p class="profile-label">{{ mood.rating_label }}</p>
+            <p class="profile-count">{{ mood.count }}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p class="text-luxury-muted mb-0">No emotional ratings yet. Start rating titles to unlock your taste profile.</p>
+    {% endif %}
+</div>
+{% endblock %}

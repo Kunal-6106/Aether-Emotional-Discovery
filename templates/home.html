@@ -1,0 +1,175 @@
+{% extends "base.html" %}
+
+{% block title %}Aether | Discover{% endblock %}
+
+{% block content %}
+{% if featured_movie %}
+<section class="hero-banner reveal">
+    <div class="hero-content">
+        <p class="section-kicker">FEATURED EXPERIENCE</p>
+        <h1>{{ featured_movie.title }}</h1>
+        <p class="hero-meta">{{ featured_movie.release_year }} • {{ featured_movie.genre }} • {{ featured_movie.platform }}</p>
+        <p class="hero-description">
+            {{ featured_movie.description[:220] ~ '...' if featured_movie.description and featured_movie.description|length > 220 else featured_movie.description }}
+        </p>
+
+        <div class="hero-actions">
+            <a href="{{ url_for('content_detail', content_id=featured_movie.id) }}" class="btn btn-primary">View Experience</a>
+            <a href="{{ url_for('add_watch', content_id=featured_movie.id) }}" class="btn btn-secondary">Add to History</a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% if top_emotion %}
+<section class="glass-panel reveal">
+    <p class="section-kicker">AETHER INTELLIGENCE</p>
+    <h2>Your current taste profile: <span>{{ top_emotion }}</span></h2>
+    <p class="section-description">
+        Based on your emotional verdicts, Aether is learning what actually hits.
+    </p>
+</section>
+{% endif %}
+
+<section class="toolbar reveal">
+    <form method="GET" action="{{ url_for('home') }}" class="filter-form">
+        <input type="text" name="search" placeholder="Search by title or mood..." value="{{ search_query }}">
+
+        <select name="genre">
+            <option value="">All Genres</option>
+            {% for genre in genres %}
+                <option value="{{ genre }}" {% if selected_genre == genre %}selected{% endif %}>{{ genre }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" class="btn btn-primary">Filter</button>
+    </form>
+</section>
+
+{% if recommended_movies %}
+<section class="content-section reveal">
+    <div class="section-header">
+        <div>
+            <p class="section-kicker">PERSONALIZED FOR YOU</p>
+            <h2>Because your taste says <span>{{ top_emotion }}</span></h2>
+        </div>
+    </div>
+
+    <div class="movie-row">
+        {% for movie in recommended_movies %}
+        <a href="{{ url_for('content_detail', content_id=movie.id) }}" class="row-card">
+            <img src="{{ movie.poster_url if movie.poster_url else 'https://via.placeholder.com/500x750?text=Aether' }}"
+                 alt="{{ movie.title }}"
+                 onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750?text=Aether';">
+            <div class="row-card-info">
+                <h4>{{ movie.title }}</h4>
+                <p>{{ movie.genre }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<section class="section-header reveal">
+    <div>
+        <p class="section-kicker">DISCOVERY</p>
+        <h2>All Titles</h2>
+    </div>
+    <a href="{{ url_for('history') }}" class="mini-link">View Watch History →</a>
+</section>
+
+<section class="movie-grid">
+    {% for movie in movies %}
+    <a href="{{ url_for('content_detail', content_id=movie.id) }}" class="movie-card reveal">
+        <div class="movie-poster-wrap">
+            <img
+                src="{{ movie.poster_url if movie.poster_url else 'https://via.placeholder.com/500x750?text=Aether' }}"
+                alt="{{ movie.title }}"
+                class="movie-poster"
+                onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750?text=Aether';"
+            >
+            <div class="movie-overlay">
+                <span class="movie-chip">{{ movie.genre if movie.genre else 'Cinema' }}</span>
+                <div class="movie-bottom">
+                    <h3>{{ movie.title }}</h3>
+                    <p>{{ movie.release_year }} • {{ movie.platform }}</p>
+                </div>
+            </div>
+        </div>
+    </a>
+    {% endfor %}
+</section>
+
+{% if sci_fi %}
+<section class="content-section reveal">
+    <div class="section-header">
+        <div>
+            <p class="section-kicker">CURATED ROW</p>
+            <h2>Mind-Bending Sci-Fi</h2>
+        </div>
+    </div>
+    <div class="movie-row">
+        {% for movie in sci_fi %}
+        <a href="{{ url_for('content_detail', content_id=movie.id) }}" class="row-card">
+            <img src="{{ movie.poster_url if movie.poster_url else 'https://via.placeholder.com/500x750?text=Aether' }}"
+                 alt="{{ movie.title }}"
+                 onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750?text=Aether';">
+            <div class="row-card-info">
+                <h4>{{ movie.title }}</h4>
+                <p>{{ movie.genre }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if thrillers %}
+<section class="content-section reveal">
+    <div class="section-header">
+        <div>
+            <p class="section-kicker">CURATED ROW</p>
+            <h2>Tension You Can Taste</h2>
+        </div>
+    </div>
+    <div class="movie-row">
+        {% for movie in thrillers %}
+        <a href="{{ url_for('content_detail', content_id=movie.id) }}" class="row-card">
+            <img src="{{ movie.poster_url if movie.poster_url else 'https://via.placeholder.com/500x750?text=Aether' }}"
+                 alt="{{ movie.title }}"
+                 onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750?text=Aether';">
+            <div class="row-card-info">
+                <h4>{{ movie.title }}</h4>
+                <p>{{ movie.genre }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+{% if dramas %}
+<section class="content-section reveal">
+    <div class="section-header">
+        <div>
+            <p class="section-kicker">CURATED ROW</p>
+            <h2>Beautifully Devastating</h2>
+        </div>
+    </div>
+    <div class="movie-row">
+        {% for movie in dramas %}
+        <a href="{{ url_for('content_detail', content_id=movie.id) }}" class="row-card">
+            <img src="{{ movie.poster_url if movie.poster_url else 'https://via.placeholder.com/500x750?text=Aether' }}"
+                 alt="{{ movie.title }}"
+                 onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750?text=Aether';">
+            <div class="row-card-info">
+                <h4>{{ movie.title }}</h4>
+                <p>{{ movie.genre }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+{% endblock %}

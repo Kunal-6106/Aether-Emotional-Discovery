@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}Rate {{ content.title }} | Aether{% endblock %}
+
+{% block content %}
+<section class="rate-page">
+    <div class="rate-card reveal">
+        <div class="rate-poster">
+            <img 
+                src="{{ content.poster_url if content.poster_url else 'https://via.placeholder.com/500x750?text=Aether' }}" 
+                alt="{{ content.title }}"
+                onerror="this.onerror=null;this.src='https://via.placeholder.com/500x750?text=Aether';"
+            >
+        </div>
+
+        <div class="rate-content">
+            <p class="section-kicker">AETHER EXPERIENCE RATING</p>
+            <h1>{{ content.title }}</h1>
+            <p class="rate-meta">{{ content.release_year }} • {{ content.genre }} • {{ content.platform }}</p>
+            <p class="rate-description">
+                {{ content.description }}
+            </p>
+
+            <form method="POST" action="{{ url_for('rate_content', content_id=content.id) }}" class="rate-form">
+                <label class="rate-label">How did this experience land for you?</label>
+
+                <div class="rating-options">
+                    <label class="rating-pill">
+                        <input type="radio" name="rating_label" value="Transcendent" required>
+                        <span>
+                            <strong>Transcendent</strong><br>
+                            <small>A life-changing cinematic experience.</small>
+                        </span>
+                    </label>
+
+                    <label class="rating-pill">
+                        <input type="radio" name="rating_label" value="Pure Joy" required>
+                        <span>
+                            <strong>Pure Joy</strong><br>
+                            <small>Fun, entertaining, and highly rewatchable.</small>
+                        </span>
+                    </label>
+
+                    <label class="rating-pill">
+                        <input type="radio" name="rating_label" value="Solid / Decent" required>
+                        <span>
+                            <strong>Solid / Decent</strong><br>
+                            <small>A well-made film that delivers exactly what it promised.</small>
+                        </span>
+                    </label>
+
+                    <label class="rating-pill">
+                        <input type="radio" name="rating_label" value="Meh" required>
+                        <span>
+                            <strong>Meh</strong><br>
+                            <small>Forgettable; didn’t leave much of an impression.</small>
+                        </span>
+                    </label>
+
+                    <label class="rating-pill">
+                        <input type="radio" name="rating_label" value="Offensive / Enraging" required>
+                        <span>
+                            <strong>Offensive / Enraging</strong><br>
+                            <small>Bad enough to make you feel like the filmmakers owe you an apology.</small>
+                        </span>
+                    </label>
+                </div>
+
+                <button type="submit" class="btn btn-primary rate-submit-btn">Submit Experience Rating</button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

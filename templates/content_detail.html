@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="detail-hero reveal">
+    <div class="detail-poster">
+        <img src="{{ movie.poster_url if movie.poster_url else 'https://via.placeholder.com/500x750?text=Aether' }}" alt="{{ movie.title }}">
+    </div>
+    
+    <div class="detail-info">
+        <p class="section-kicker">CINEMATIC EXPERIENCE</p>
+        <h1>{{ movie.title }}</h1>
+        <p class="hero-meta">{{ movie.release_year }} • {{ movie.genre }} • {{ movie.platform }}</p>
+        <p class="hero-description">{{ movie.description }}</p>
+
+        <div class="hero-actions">
+            <a href="{{ url_for('add_watch', content_id=movie.id) }}" class="btn btn-primary">Add to History</a>
+        </div>
+
+        <div class="glass-panel" style="margin-top: 40px;">
+            <p class="section-kicker">YOUR VERDICT</p>
+            <h2>Rate this experience</h2>
+            <p class="auth-subtext">Not stars. Not numbers. Just how it actually felt.</p>
+            
+            <form action="{{ url_for('rate_content', content_id=movie.id) }}" method="POST" class="rating-form">
+                <button type="submit" name="rating_label" value="Transcendent" class="btn-rating">Transcendent</button>
+                <button type="submit" name="rating_label" value="Pure Joy" class="btn-rating">Pure Joy</button>
+                <button type="submit" name="rating_label" value="Solid / Decent" class="btn-rating">Solid / Decent</button>
+                <button type="submit" name="rating_label" value="Meh" class="btn-rating">Meh</button>
+                <button type="submit" name="rating_label" value="Offensive / Enraging" class="btn-rating">Offensive / Enraging</button>
+            </form>
+            
+            {% if user_rating %}
+                <p class="current-rating">Current Status: <strong>{{ user_rating }}</strong></p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

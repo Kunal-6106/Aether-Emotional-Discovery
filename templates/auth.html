@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Login | Aether{% endblock %}
+
+{% block content %}
+<section class="auth-page">
+    <div class="auth-bg-blur auth-blur-1"></div>
+    <div class="auth-bg-blur auth-blur-2"></div>
+
+    <div class="auth-grid">
+        <!-- LEFT SIDE -->
+        <div class="auth-copy-panel reveal">
+            <p class="eyebrow">WELCOME TO AETHER</p>
+            <h1>Step into your premium cinema universe.</h1>
+            <p class="auth-description">
+                Discover films and series through emotion, aesthetic taste, and cinematic identity — not just boring ratings.
+            </p>
+
+            <div class="auth-points">
+                <div class="auth-point">
+                    <span>01</span>
+                    <p>Rate films by how they made you feel.</p>
+                </div>
+                <div class="auth-point">
+                    <span>02</span>
+                    <p>Build your own cinematic taste fingerprint.</p>
+                </div>
+                <div class="auth-point">
+                    <span>03</span>
+                    <p>Get emotionally aligned recommendations.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT SIDE -->
+        <div class="auth-box reveal">
+            <div class="auth-switcher">
+                <button type="button" id="loginSwitch" class="switch-btn active" onclick="showAuthTab('login')">Login</button>
+                <button type="button" id="signupSwitch" class="switch-btn" onclick="showAuthTab('signup')">Sign Up</button>
+            </div>
+
+            <!-- LOGIN -->
+            <div id="loginFormBox" class="auth-panel active">
+                <h2>Welcome Back</h2>
+                <p class="auth-subtext">Return to your curated world of cinema.</p>
+
+                <form method="POST" action="{{ url_for('login') }}" class="auth-form">
+                    <input type="email" name="email" placeholder="Email address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit" class="aether-auth-btn">Enter Aether</button>
+                </form>
+            </div>
+
+            <!-- SIGNUP -->
+            <div id="signupFormBox" class="auth-panel">
+                <h2>Create Account</h2>
+                <p class="auth-subtext">Start building your emotional taste profile.</p>
+
+                <form method="POST" action="{{ url_for('signup') }}" class="auth-form">
+                    <input type="text" name="full_name" placeholder="Full name" required>
+                    <input type="email" name="email" placeholder="Email address" required>
+                    <input type="password" name="password" placeholder="Password" required>
+                    <button type="submit" class="aether-auth-btn">Create Your Universe</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+function showAuthTab(tab) {
+    const loginBox = document.getElementById("loginFormBox");
+    const signupBox = document.getElementById("signupFormBox");
+    const loginBtn = document.getElementById("loginSwitch");
+    const signupBtn = document.getElementById("signupSwitch");
+
+    loginBox.classList.remove("active");
+    signupBox.classList.remove("active");
+    loginBtn.classList.remove("active");
+    signupBtn.classList.remove("active");
+
+    if (tab === "login") {
+        loginBox.classList.add("active");
+        loginBtn.classList.add("active");
+    } else {
+        signupBox.classList.add("active");
+        signupBtn.classList.add("active");
+    }
+}
+</script>
+{% endblock %}

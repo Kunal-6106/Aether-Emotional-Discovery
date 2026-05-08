@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}History | Aether{% endblock %}
+
+{% block content %}
+<section class="content-section">
+    <div class="section-header reveal">
+        <h2>Your Watch History</h2>
+        <p>Everything you’ve already stepped into.</p>
+    </div>
+
+    <div class="movie-grid">
+        {% for movie in watched_content %}
+            <div class="movie-card reveal">
+                <div class="movie-poster-wrap">
+                    <img src="{{ movie.poster_url }}" alt="{{ movie.title }}" class="movie-poster"
+                         onerror="this.src='https://via.placeholder.com/300x450?text=Aether';">
+                    <div class="movie-overlay">
+                        <p class="movie-description-preview">{{ movie.description[:110] }}...</p>
+                        <div class="movie-chip-row">
+                            <span class="mini-chip">{{ movie.genre }}</span>
+                            <span class="mini-chip">{{ movie.language }}</span>
+                            <span class="mini-chip">{{ movie.type }}</span>
+                        </div>
+                        <div class="movie-card-actions">
+                            <a href="{{ url_for('content_detail', content_id=movie.id) }}" class="mini-btn gold-btn">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="movie-info">
+                    <h3>{{ movie.title }}</h3>
+                    <p class="movie-subline">{{ movie.release_year }} • {{ movie.platform }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
